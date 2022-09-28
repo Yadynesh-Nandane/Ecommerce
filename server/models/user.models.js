@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { isEmail } from "validator";
+import validator from "validator";
 
 const userSchema = new mongoose.Schema(
   {
@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       lowercase: true,
       unique: String,
-      validate: [isEmail, "Invalid Email"],
+      validate: [validator.isEmail, "Invalid Email"],
     },
     password: {
       type: String,
@@ -25,7 +25,3 @@ const userSchema = new mongoose.Schema(
 
 export default mongoose.model("User", userSchema);
 
-//  match: [
-//       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-//       "Please fill a valid email address",
-//     ],
