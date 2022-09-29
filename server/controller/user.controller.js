@@ -1,4 +1,5 @@
 import User from "../models/user.models.js";
+import sendToken from "../utils/jwtToken.js";
 
 // User SignUp
 export const registerUser = async (req, res, next) => {
@@ -14,10 +15,7 @@ export const registerUser = async (req, res, next) => {
 
     const user = await User.create({ name, email, password });
 
-    res.status(201).send({
-      success: true,
-      user,
-    });
+    sendToken(user, 201, res);
   } catch (err) {
     res.status(400).send({
       success: false,
@@ -56,11 +54,24 @@ export const loginUser = async (req, res, next) => {
       });
     }
 
-    res.status(200).send({
-      success: true,
-      user,
+    // res.status(200).send({
+    //   success: true,
+    //   user,
+    // });
+    sendToken(user, 200, res);
+  } catch (err) {
+    res.status(400).send({
+      success: false,
+      message: err.message,
     });
-  } catch (err) {}
+  }
 };
 
-export const logoutUser = async (req, res, next) => {};
+export const logoutUser = async (req, res, next) => {
+  res.cookie("token", null, { expires: new Date(Date.now()), httpOnly: true });
+
+  res.status(200).send({
+    success: true,
+    message: "Sign out",
+  });
+};
