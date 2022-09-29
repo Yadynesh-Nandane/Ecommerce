@@ -8,8 +8,6 @@ const PORT = process.env.PORT || 3011;
 
 database();
 
-app.get("/", (req, res) => res.send("Hello world!"));
-
 app.listen(PORT, () => {
   console.log(`Server started at => ${PORT}`);
 });

@@ -1,30 +1,66 @@
 import User from "../models/user.models.js";
 
-// User Signup
-const registerUser = async (req, res, next) => {
-  const { name, emailAddress, password, confirm } = req.body;
+// User SignUp
+export const registerUser = async (req, res, next) => {
+  try {
+    const { name, email, password, confirmPassword } = req.body;
 
-  if (password !== confirm) {
-    return next(
-      res.status(400).send({
+    if (password !== confirmPassword) {
+      return res.status(406).send({
         success: false,
-        message: "Password and confirm Password does not match",
-      })
-    );
-  }
+        message: "Passwords must match",
+      });
+    }
 
-  if (password === confirm) {
-    const user = await User.create({
-      name,
-      emailAddress,
-      password,
-    });
+    const user = await User.create({ name, email, password });
 
     res.status(201).send({
       success: true,
       user,
     });
+  } catch (err) {
+    res.status(400).send({
+      success: false,
+      message: err.message,
+    });
   }
 };
 
-export { registerUser };
+// User SignIn
+export const loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).send({
+        success: false,
+        message: "Please enter email and password",
+      });
+    }
+
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) {
+      return res.status(401).send({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    const passwordMatch = await user.comparePassword(password);
+
+    if (!passwordMatch) {
+      return res.status(401).send({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    res.status(200).send({
+      success: true,
+      user,
+    });
+  } catch (err) {}
+};
+
+export const logoutUser = async (req, res, next) => {};
