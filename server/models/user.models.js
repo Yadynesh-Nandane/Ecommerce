@@ -24,9 +24,15 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "vendor"],
+      enum: ["user", "seller"],
       default: "user",
     },
+    // productOrdered: [
+    //   {
+    //     type: String,
+
+    //   },
+    // ],
   },
   { timestamps: true }
 );
