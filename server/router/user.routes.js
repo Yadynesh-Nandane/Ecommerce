@@ -8,6 +8,7 @@ import {
   getToken,
   updateUserProfile,
   updateUserPassword,
+  deleteUserProfile,
 } from "../controller/user.controller.js";
 import { isAuthenticatedUser } from "../middleware/userAuth.js";
 import { authorizedUserRole } from "../middleware/Authorize.js";
@@ -41,7 +42,14 @@ router
 
 // Reset Password using token
 
+// Delete User Profile
+router
+  .route("/remove/me")
+  .delete(isAuthenticatedUser, authorizedUserRole("user"), deleteUserProfile);
+
 // User and seller
 router.route("/logout").get(isAuthenticatedUser, logoutUser);
+
+// User account delete
 
 export default router;

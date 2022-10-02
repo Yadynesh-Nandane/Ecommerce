@@ -21,10 +21,10 @@ export const registerUser = async (req, res, next) => {
     const user = await User.create({ name, email, phoneNumber, password });
 
     sendToken(user, 201, res);
-  } catch (err) {
+  } catch (error) {
     res.status(400).send({
       success: false,
-      message: err.message,
+      message: error.message,
     });
   }
 };
@@ -59,10 +59,10 @@ export const loginUser = async (req, res, next) => {
       });
     }
     sendToken(user, 200, res);
-  } catch (err) {
+  } catch (error) {
     res.status(400).send({
       success: false,
-      message: err.message,
+      message: error.message,
     });
   }
 };
@@ -91,7 +91,7 @@ export const getUserDetails = async (req, res, next) => {
   }
 };
 
-// After Login Update User Profile and if he is seller then sync with seller data
+// After Sign In Update User Profile and if he is seller then sync with seller data
 export const updateUserProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
@@ -139,12 +139,11 @@ export const updateUserProfile = async (req, res, next) => {
       });
     }
   } catch (error) {
-    res.status(500).send({
-      message: error.message,
-    });
+    res.status(500).send({ success: false, message: error.message });
   }
 };
 
+// Update User Password after Sign In
 export const updateUserPassword = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id).select("+password");
@@ -177,19 +176,59 @@ export const updateUserPassword = async (req, res, next) => {
 
     sendToken(user, 200, res);
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).send({ success: false, message: error.message });
+  }
+};
+
+export const forgetPassword = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
+};
+
+// User Profile Delete and if user is also seller then delete both data from User and Seller collection
+export const deleteUserProfile = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User does not exist",
+      });
+    }
+
+    await user.remove();
+    res
+      .status(200)
+      .send({ success: true, message: "User Deleted successfully" });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
   }
 };
 
 // User Sign out
 export const logoutUser = (req, res, next) => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
-    httpOnly: true,
-  });
+  try {
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
 
-  res.status(200).send({
-    success: true,
-    message: "Sign out",
-  });
+    res.status(200).send({
+      success: true,
+      message: "Sign out",
+    });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
 };
