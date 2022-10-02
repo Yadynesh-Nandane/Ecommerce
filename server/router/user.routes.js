@@ -1,11 +1,47 @@
 import express from "express";
 
-import { registerUser, loginUser } from "../controller/user.controller.js";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  getUserDetails,
+  getToken,
+  updateUserProfile,
+  updateUserPassword,
+} from "../controller/user.controller.js";
+import { isAuthenticatedUser } from "../middleware/userAuth.js";
+import { authorizedUserRole } from "../middleware/Authorize.js";
 
 const router = express.Router();
 
+router.route("/get-token").get(isAuthenticatedUser, getToken);
+
+// New user register
 router.route("/register").post(registerUser);
 
+// User login
 router.route("/login").post(loginUser);
+
+// User details
+router
+  .route("/me")
+  .get(isAuthenticatedUser, authorizedUserRole("user"), getUserDetails);
+
+// User Edit
+router
+  .route("/edit/me")
+  .put(isAuthenticatedUser, authorizedUserRole("user"), updateUserProfile);
+
+// User Password update
+router
+  .route("/password/update")
+  .put(isAuthenticatedUser, authorizedUserRole("user"), updateUserPassword);
+
+// Forget Password
+
+// Reset Password using token
+
+// User and seller
+router.route("/logout").get(isAuthenticatedUser, logoutUser);
 
 export default router;

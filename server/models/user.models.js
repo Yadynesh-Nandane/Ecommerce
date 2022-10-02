@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema(
       required: [true, "Enter your email"],
       validate: [validator.isEmail, "Invalid Email"],
     },
+    phoneNumber: {
+      type: String,
+      unique: true,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
@@ -27,12 +32,6 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "seller"],
       default: "user",
     },
-    // productOrdered: [
-    //   {
-    //     type: String,
-
-    //   },
-    // ],
   },
   { timestamps: true }
 );

@@ -1,34 +1,32 @@
 import mongoose from "mongoose";
 
-const sellerModel = new mongoose.Schema({
+const sellerSchema = new mongoose.Schema({
   sellerName: {
     type: String,
   },
   email: {
     type: String,
     unique: true,
+    required: true,
   },
-  sellerDetails: {
+  phoneNumber: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  businessDetails: {
     businessName: {
       type: String,
-      required: true,
+      required: [true, "Please enter business name"],
     },
     businessAddress: {
       type: String,
-      required: true,
+      required: [true, "Please enter business address"],
     },
   },
   aboutSeller: {
     type: String,
-    required: true,
-  },
-  totalRating: {
-    type: Number,
-    default: 0,
-  },
-  rating: {
-    type: Number,
-    default: 0,
+    required: [true, "About seller is required"],
   },
   feedback: [
     {
@@ -55,6 +53,7 @@ const sellerModel = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
     required: true,
+    unique: true,
   },
   role: {
     type: String,
@@ -62,3 +61,5 @@ const sellerModel = new mongoose.Schema({
     default: "seller",
   },
 });
+
+export default mongoose.model("Seller", sellerSchema);

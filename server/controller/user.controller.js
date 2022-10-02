@@ -1,10 +1,15 @@
 import User from "../models/user.models.js";
+import Seller from "../models/seller.models.js";
 import sendToken from "../utils/jwtToken.js";
 
-// User SignUp
+export const getToken = (req, res) => {
+  res.send(req.cookies);
+};
+
+// User Sign Up
 export const registerUser = async (req, res, next) => {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    const { name, email, phoneNumber, password, confirmPassword } = req.body;
 
     if (password !== confirmPassword) {
       return res.status(406).send({
@@ -13,7 +18,7 @@ export const registerUser = async (req, res, next) => {
       });
     }
 
-    const user = await User.create({ name, email, password });
+    const user = await User.create({ name, email, phoneNumber, password });
 
     sendToken(user, 201, res);
   } catch (err) {
@@ -24,7 +29,7 @@ export const registerUser = async (req, res, next) => {
   }
 };
 
-// User SignIn
+// User Sign In
 export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -53,11 +58,6 @@ export const loginUser = async (req, res, next) => {
         message: "Invalid email or password",
       });
     }
-
-    // res.status(200).send({
-    //   success: true,
-    //   user,
-    // });
     sendToken(user, 200, res);
   } catch (err) {
     res.status(400).send({
@@ -67,8 +67,126 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
-export const logoutUser = async (req, res, next) => {
-  res.cookie("token", null, { expires: new Date(Date.now()), httpOnly: true });
+// Get User Details
+export const getUserDetails = async (req, res, next) => {
+  try {
+    const userData = await User.findById(req.user.id);
+
+    if (!userData) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).send({
+      success: true,
+      userData,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// After Login Update User Profile and if he is seller then sync with seller data
+export const updateUserProfile = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const seller = await Seller.findOne({ user: req.user.id });
+
+    if (seller && user) {
+      if (seller.user.toString() === user.id) {
+        if (
+          seller.sellerName !== req.body.name ||
+          seller.email !== req.body.email ||
+          seller.phoneNumber !== req.body.phoneNumber
+        ) {
+          user.name = req.body.name;
+          user.email = req.body.email;
+          user.phoneNumber = req.body.phoneNumber;
+          seller.sellerName = req.body.name;
+          seller.email = req.body.email;
+          seller.phoneNumber = req.body.phoneNumber;
+
+          await user.save({
+            validateBeforeSave: true,
+            validateModifiedOnly: true,
+          });
+          await seller.save({
+            validateBeforeSave: true,
+            validateModifiedOnly: true,
+          });
+
+          res.status(201).send({
+            success: true,
+            user,
+          });
+        }
+      }
+    } else if (user && !seller) {
+      user.name = req.body.name;
+      user.email = req.body.email;
+      user.phoneNumber = req.body.phoneNumber;
+
+      await user.save();
+
+      res.status(201).send({
+        success: true,
+        user,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+    });
+  }
+};
+
+export const updateUserPassword = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).select("+password");
+
+    const isPassword = await user.comparePassword(req.body.oldPassword);
+
+    if (!isPassword) {
+      return res.status(401).send({
+        success: false,
+        message: "Old password is invalid",
+      });
+    }
+
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return res
+        .status(400)
+        .send({ success: false, message: "Password does not match" });
+    }
+
+    if (req.body.oldPassword === req.body.newPassword) {
+      return res.status(400).send({
+        success: false,
+        message: "New Password should be different from old Password",
+      });
+    }
+
+    user.password = req.body.newPassword;
+
+    await user.save();
+
+    sendToken(user, 200, res);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+// User Sign out
+export const logoutUser = (req, res, next) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
 
   res.status(200).send({
     success: true,

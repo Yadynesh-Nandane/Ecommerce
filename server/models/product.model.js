@@ -24,20 +24,24 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    features: {
-      type: String,
-      required: true,
-    },
-    color: {
-      type: String,
-      required: true,
-    },
+    features: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+    color: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     totalReviews: {
       type: Number,
-      defaukt: 0,
+      default: 0,
     },
     rating: {
-      type: String,
+      type: Number,
     },
     reviews: [
       {
@@ -62,7 +66,7 @@ const productSchema = new mongoose.Schema(
     ],
     seller: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
+      ref: "sellers",
       required: true,
     },
   },
