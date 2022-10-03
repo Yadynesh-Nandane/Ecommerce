@@ -1,6 +1,7 @@
 import User from "../models/user.models.js";
 import Seller from "../models/seller.models.js";
 import sendToken from "../utils/jwtToken.js";
+import sendEmail from "../utils/sendMail.js";
 
 export const getToken = (req, res) => {
   res.send(req.cookies);
@@ -180,17 +181,44 @@ export const updateUserPassword = async (req, res, next) => {
   }
 };
 
+// User on click 'Forget Password?'
 export const forgetPassword = async (req, res, next) => {
-  try {
-    const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: req.body.email });
 
-    if (!user) {
-      return res.status(404).send({
-        success: false,
-        message: "User not found",
-      });
-    }
+  if (!user) {
+    return res.status(404).send({
+      success: false,
+      message: "User not found",
+    });
+  }
+
+  const resetToken = user.getResetPasswordToken();
+
+  await user.save({ validateBeforeSave: false });
+
+  const resetPasswordUrl = `${req.protocal}://${req.get(
+    "host"
+  )}/v1/password/reset/${resetToken}`;
+
+  const message = `Your password reset link is :- ${resetPasswordUrl}`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "E-commerce Password Recovery",
+      message,
+    });
+
+    res.status(200).send({
+      success: true,
+      message: `Email sent to ${user.email} successfully`,
+    });
   } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
     res.status(500).send({ success: false, message: error.message });
   }
 };

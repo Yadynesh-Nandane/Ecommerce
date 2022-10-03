@@ -9,6 +9,7 @@ import {
   updateUserProfile,
   updateUserPassword,
   deleteUserProfile,
+  forgetPassword,
 } from "../controller/user.controller.js";
 import { isAuthenticatedUser } from "../middleware/userAuth.js";
 import { authorizedUserRole } from "../middleware/Authorize.js";
@@ -39,6 +40,7 @@ router
   .put(isAuthenticatedUser, authorizedUserRole("user"), updateUserPassword);
 
 // Forget Password
+router.route("/password/forgot").post(forgetPassword);
 
 // Reset Password using token
 
