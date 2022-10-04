@@ -2,6 +2,7 @@ import express from "express";
 
 import {
   createSeller,
+  deleteSeller,
   findSellerDetails,
   updateSellerDetails,
 } from "../controller/seller.controller.js";
@@ -40,6 +41,16 @@ router
     isAuthenticatedSeller,
     authorizedSellerRole("seller"),
     updateSellerDetails
+  );
+
+router
+  .route("/seller/delete")
+  .delete(
+    isAuthenticatedUser,
+    authorizedUserRole("user"),
+    isAuthenticatedSeller,
+    authorizedSellerRole("seller"),
+    deleteSeller
   );
 
 export default router;

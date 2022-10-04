@@ -13,11 +13,9 @@ export const isAuthenticatedUser = async (req, res, next) => {
       });
     }
 
-    const decodeData = jwt.verify(token, "smd$msdaw#key");
+    const decodeData = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = await User.findById(decodeData.id);
-
-    // console.log(req.user.id);
 
     next();
   } catch (error) {

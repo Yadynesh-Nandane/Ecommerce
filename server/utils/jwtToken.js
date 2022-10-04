@@ -1,7 +1,7 @@
 const sendToken = (user, statusCode, res) => {
   const token = user.getJWTToken();
   const options = {
-    exipres: "1h",
+    exipres: process.env.JWT_EXPIRE,
     httpOnly: true,
     path: "/",
     sameSite: "strict",

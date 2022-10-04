@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const sellerSchema = new mongoose.Schema({
   sellerName: {
     type: String,
+    required: true,
   },
   email: {
     type: String,
