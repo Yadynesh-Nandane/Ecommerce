@@ -8,6 +8,7 @@ import {
   editProduct,
   deleteProduct,
   findSingleProductUser,
+  createProductReview,
 } from "../controller/product.controller.js";
 import {
   authorizedUserRole,
@@ -80,3 +81,8 @@ router
   .route("/product/:id")
   .get(isAuthenticatedUser, authorizedUserRole("user"), findSingleProductUser);
 export default router;
+
+// Give reviews to products
+router
+  .route("/product/review")
+  .put(isAuthenticatedUser, authorizedUserRole("user"), createProductReview);

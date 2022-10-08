@@ -30,27 +30,6 @@ const sellerSchema = new mongoose.Schema(
       type: String,
       required: [true, "About seller is required"],
     },
-    feedback: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "users",
-          required: true,
-        },
-        name: {
-          type: String,
-          required: true,
-        },
-        rating: {
-          type: Number,
-          required: true,
-        },
-        comment: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",

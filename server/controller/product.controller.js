@@ -61,6 +61,7 @@ export const findSingleProductUser = async (req, res, next) => {
   }
 };
 
+// Create a new review or re-review your feedback
 export const createProductReview = async (req, res, next) => {
   try {
     const { rating, comment, productId } = req.body;
