@@ -20,7 +20,7 @@ export const createProduct = async (req, res, next) => {
   }
 };
 
-// Get products
+// Get products for users
 export const findAllProducts = async (req, res, next) => {
   try {
     const allProducts = await Product.find();
@@ -28,6 +28,30 @@ export const findAllProducts = async (req, res, next) => {
     res.status(200).send({
       success: true,
       allProducts,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// Get single product for user using Id
+export const findSingleProductUser = async (req, res, next) => {
+  try {
+    const singleProduct = await Product.findById(req.params.id);
+
+    if (!singleProduct) {
+      return res.status(404).send({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).send({
+      success: true,
+      singleProduct,
     });
   } catch (error) {
     res.status(500).send({
@@ -70,5 +94,51 @@ export const findSingleProduct = async (req, res, next) => {
       success: false,
       message: error.message,
     });
+  }
+};
+
+// Edit seller products
+export const editProduct = async (req, res, next) => {
+  try {
+    const editedProduct = await Product.findOneAndUpdate(
+      {
+        $and: [{ seller: req.seller.id }, { _id: req.params.id }],
+      },
+      req.body
+    );
+    if (!editedProduct) {
+      return res.status(404).send({
+        success: false,
+        message: `Product not found`,
+      });
+    }
+
+    res.status(201).send({ success: true, editedProduct });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
+};
+
+// Delete Seller Products API
+export const deleteProduct = async (req, res, next) => {
+  try {
+    const product = await Product.findOne({
+      $and: [{ _id: req.params.id }, { seller: req.seller.id }],
+    });
+
+    if (!product) {
+      return res.status(404).send({
+        success: false,
+        message: `Product not found`,
+      });
+    }
+
+    await product.remove();
+
+    res
+      .status(200)
+      .send({ success: true, message: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
   }
 };

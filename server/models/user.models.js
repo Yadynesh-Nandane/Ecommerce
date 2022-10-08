@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
     phoneNumber: {
       type: String,
       unique: true,
-      required: true,
+      required: [true, "Enter your phone number"],
     },
     password: {
       type: String,

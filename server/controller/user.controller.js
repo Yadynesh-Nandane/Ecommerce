@@ -23,7 +23,7 @@ export const registerUser = async (req, res, next) => {
 
     sendToken(user, 201, res);
   } catch (error) {
-    res.status(400).send({
+    res.status(500).send({
       success: false,
       message: error.message,
     });
@@ -61,7 +61,7 @@ export const loginUser = async (req, res, next) => {
     }
     sendToken(user, 200, res);
   } catch (error) {
-    res.status(400).send({
+    res.status(500).send({
       success: false,
       message: error.message,
     });
@@ -85,7 +85,7 @@ export const getUserDetails = async (req, res, next) => {
       userData,
     });
   } catch (error) {
-    res.status(400).send({
+    res.status(500).send({
       success: false,
       message: error.message,
     });
@@ -113,11 +113,9 @@ export const updateUserProfile = async (req, res, next) => {
           seller.phoneNumber = req.body.phoneNumber;
 
           await user.save({
-            validateBeforeSave: true,
             validateModifiedOnly: true,
           });
           await seller.save({
-            validateBeforeSave: true,
             validateModifiedOnly: true,
           });
 

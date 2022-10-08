@@ -5,6 +5,9 @@ import {
   findAllProducts,
   findSellersAllProducts,
   findSingleProduct,
+  editProduct,
+  deleteProduct,
+  findSingleProductUser,
 } from "../controller/product.controller.js";
 import {
   authorizedUserRole,
@@ -52,4 +55,28 @@ router
     findSingleProduct
   );
 
+// Edit Sellers single Product
+router
+  .route("/product/edit/:id")
+  .put(
+    isAuthenticatedUser,
+    isAuthenticatedSeller,
+    authorizedSellerRole("seller"),
+    editProduct
+  );
+
+// Delete Sellers single Product
+router
+  .route("/product/delete/:id")
+  .delete(
+    isAuthenticatedUser,
+    isAuthenticatedSeller,
+    authorizedSellerRole("seller"),
+    deleteProduct
+  );
+
+// Get single Product details for user using Id
+router
+  .route("/product/:id")
+  .get(isAuthenticatedUser, authorizedUserRole("user"), findSingleProductUser);
 export default router;
