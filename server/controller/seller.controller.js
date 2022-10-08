@@ -60,7 +60,17 @@ export const updateSellerDetails = async (req, res, next) => {
     const userData = await User.findOne({ id: req.seller.user });
     const sellerData = await Seller.findById(req.seller.id);
 
-    if (userData && sellerData) {
+    if (!userData) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    } else if (userData && !sellerData) {
+      return res.status(404).send({
+        success: false,
+        message: "Seller does not exist",
+      });
+    } else {
       if (userData.id === sellerData.user.toString()) {
         if (
           userData.name !== req.body.sellerName ||
@@ -81,16 +91,6 @@ export const updateSellerDetails = async (req, res, next) => {
         await sellerData.save({ validateBeforeSave: true });
 
         res.status(201).send({ success: true, sellerData });
-      } else if (userData && !sellerData) {
-        return res.status(404).send({
-          success: false,
-          message: "Seller does not exist!",
-        });
-      } else if (!userData) {
-        return res.status(404).send({
-          success: false,
-          message: "User does not exist",
-        });
       }
     }
   } catch (error) {
