@@ -15,8 +15,14 @@ const productSchema = mongoose.Schema(
       trim: true,
     },
     category: {
-      type: String,
-      required: true,
+      product_category: {
+        type: String,
+        required: true,
+      },
+      product_subcategory: {
+        type: String,
+        required: true,
+      },
     },
     brand: {
       type: String,
@@ -36,12 +42,10 @@ const productSchema = mongoose.Schema(
         required: true,
       },
     ],
-    color: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    color: {
+      type: String,
+      required: true,
+    },
     features: [
       {
         type: String,

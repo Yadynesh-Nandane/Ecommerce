@@ -32,9 +32,7 @@ router
   );
 
 // Get All Products for user
-router
-  .route("/products/all")
-  .get(isAuthenticatedUser, authorizedUserRole("user"), findAllProducts);
+router.route("/products/all").get(findAllProducts);
 
 // Get All Products of seller
 router
@@ -77,12 +75,11 @@ router
   );
 
 // Get single Product details for user using Id
-router
-  .route("/product/:id")
-  .get(isAuthenticatedUser, authorizedUserRole("user"), findSingleProductUser);
-export default router;
+router.route("/product/:id").get(findSingleProductUser);
 
 // Give reviews to products
 router
   .route("/product/review")
   .put(isAuthenticatedUser, authorizedUserRole("user"), createProductReview);
+
+export default router;
