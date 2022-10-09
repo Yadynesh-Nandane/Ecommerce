@@ -20,7 +20,6 @@ const Loginpage = () => {
   const handleSignInSubmit = (e) => {
     e.preventDefault();
 
-    // console.log(user);
     dispatch(signIn(user.email, user.password));
   };
 

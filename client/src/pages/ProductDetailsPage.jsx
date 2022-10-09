@@ -22,8 +22,6 @@ const ProductDetailsPage = () => {
     dispatch(userSingleProduct(id));
   }, [dispatch, error, id]);
 
-  // console.log(product);
-
   return (
     <>
       {loading ? (

@@ -21,7 +21,6 @@ const Registerpage = () => {
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
 
-    // console.log(newUser);
     dispatch(
       signUp(
         newUser.name,
