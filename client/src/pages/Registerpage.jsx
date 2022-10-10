@@ -43,20 +43,20 @@ const Registerpage = () => {
   }, [dispatch, error, isAuthenticated, navigate]);
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
-      <main className="flex flex-col lg:flex-row w-[370px] lg:w-[1000px] md:w-[650px] h-auto lg:h-[650px] shadow-3xl">
-        <div className="flex flex-col justify-center items-center w-full h-full bg-[#007bff] py-16 text-slate-50">
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-6">
+    <div className="w-full h-screen flex justify-center items-center bg-slate-50">
+      <main className="flex flex-col lg:flex-row w-[370px] lg:w-[1000px] md:w-[650px] h-auto lg:h-[650px] shadow-3xl rounded-2xl bg-white overflow-hidden">
+        <div className="flex flex-col justify-center items-center w-full h-full bg-[#131921] py-16 ">
+          <h1 className="text-xl text-slate-50 md:text-2xl lg:text-3xl font-bold mb-6">
             Already have an account?
           </h1>
           <Link
             to="/signin"
-            className="font-poppins font-semibold border rounded-full px-8 py-2 text-sm md:text-md lg:text-lg hover:bg-[#c5322d] hover:border-[#c5322d] transition duration-150 ease-in-out"
+            className="font-poppins font-semibold  rounded-full px-8 py-2 text-sm md:text-md lg:text-lg bg-[#f3a847] lg:bg-[#febd69] hover:lg:bg-[#f3a847]  transition duration-150 ease-in-out"
           >
             Login Now
           </Link>
         </div>
-        <div className="flex flex-col items-center w-full h-[540px]">
+        <div className="flex flex-col items-center w-full h-[560px]">
           <h1 className="font-semibold text-lg mt-14 mb-14">
             CREATE AN ACCOUNT
           </h1>
@@ -114,7 +114,7 @@ const Registerpage = () => {
             />
             <button
               type="submit"
-              className="bg-[#c5322d] text-slate-50 text-md font-semibold h-10 mt-10"
+              className="bg-[#f3a847]  lg:bg-[#febd69] hover:lg:bg-[#f3a847]  rounded-full text-md text-black font-semibold h-10 mt-10 transition duration-150 ease-in-out"
             >
               REGISTER
             </button>
