@@ -21,7 +21,7 @@ export const signUp =
         config
       );
 
-      dispatch({ type: userContants.USER_SIGNUP_SUCCESS, payload: data.user });
+      dispatch({ type: userContants.USER_SIGNUP_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: userContants.USER_SIGNUP_FAIL, payload: error.message });
     }
@@ -44,7 +44,7 @@ export const signIn = (email, password) => async (dispatch) => {
       config
     );
 
-    dispatch({ type: userContants.USER_SIGNIN_SUCCESS, payload: data.user });
+    dispatch({ type: userContants.USER_SIGNIN_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: userContants.USER_SIGNIN_FAIL, payload: error.message });
   }

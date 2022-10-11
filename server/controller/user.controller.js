@@ -71,9 +71,9 @@ export const loginUser = async (req, res, next) => {
 // Get User Details
 export const getUserDetails = async (req, res, next) => {
   try {
-    const userData = await User.findById(req.user.id);
+    const user = await User.findById(req.user.id);
 
-    if (!userData) {
+    if (!user) {
       return res.status(404).send({
         success: false,
         message: "User not found",
@@ -82,7 +82,7 @@ export const getUserDetails = async (req, res, next) => {
 
     res.status(200).send({
       success: true,
-      userData,
+      user,
     });
   } catch (error) {
     res.status(500).send({

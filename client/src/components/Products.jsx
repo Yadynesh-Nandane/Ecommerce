@@ -20,12 +20,12 @@ const Products = () => {
   }, [dispatch, error]);
 
   return (
-    <div className="w-full h-full flex flex-col font-poppins my-4">
-      {products?.allProducts?.map((product, i) => (
+    <div className="w-full h-full flex flex-col font-poppins">
+      {products?.allProducts?.map((product) => (
         <Link
           to={`product/${product?._id}`}
           key={product?._id}
-          className="w-auto h-auto flex  border-2 my-2 mx-4"
+          className="w-auto h-auto flex  border-2 my-4 first:my-0 last:my-0"
         >
           <div className="w-2/5 h-full py-10 px-4">
             <img
@@ -35,15 +35,15 @@ const Products = () => {
             />
           </div>
           <div className="w-3/5 h-full py-4 px-2">
-            <h2 className="font-sans text-xl">{product?.title}</h2>
+            <h2 className="text-xl">{product?.title}</h2>
             <div className="my-3">
               <StarRatings
-                starDimension="25px"
+                starDimension="20px"
                 starRatedColor="#FFA41C"
                 rating={product?.finalRating}
               />
             </div>
-            <div className="flex items-center font-sans text-2xl my-2">
+            <div className="flex items-center text-2xl my-2">
               <BiRupee />
               {product?.price.toLocaleString("hi-IN")}
             </div>
