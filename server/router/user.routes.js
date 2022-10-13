@@ -6,7 +6,7 @@ import {
   logoutUser,
   getUserDetails,
   getToken,
-  updateUserProfile,
+  updateUserNameOfUserAndSeller,
   updateUserPassword,
   deleteUserProfile,
   forgetPassword,
@@ -32,7 +32,11 @@ router
 // User Edit
 router
   .route("/edit/me")
-  .put(isAuthenticatedUser, authorizedUserRole("user"), updateUserProfile);
+  .put(
+    isAuthenticatedUser,
+    authorizedUserRole("user"),
+    updateUserNameOfUserAndSeller
+  );
 
 // User Password update
 router

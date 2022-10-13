@@ -35,7 +35,7 @@ const Products = () => {
             />
           </div>
           <div className="w-3/5 h-full py-4 px-2">
-            <h2 className="text-xl">{product?.title}</h2>
+            <h2 className="text-xl font-semibold">{product?.title}</h2>
             <div className="my-3">
               <StarRatings
                 starDimension="20px"
@@ -43,7 +43,7 @@ const Products = () => {
                 rating={product?.finalRating}
               />
             </div>
-            <div className="flex items-center text-2xl my-2">
+            <div className="flex items-center text-2xl font-bold my-2">
               <BiRupee />
               {product?.price.toLocaleString("hi-IN")}
             </div>

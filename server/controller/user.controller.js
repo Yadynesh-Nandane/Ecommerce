@@ -2,6 +2,7 @@ import User from "../models/user.models.js";
 import Seller from "../models/seller.models.js";
 import sendToken from "../utils/jwtToken.js";
 import sendEmail from "../utils/sendMail.js";
+import { response } from "express";
 
 export const getToken = (req, res) => {
   res.send(req.cookies);
@@ -92,50 +93,44 @@ export const getUserDetails = async (req, res, next) => {
   }
 };
 
-// After Sign In Update User Profile and if he is seller then sync with seller data
-export const updateUserProfile = async (req, res, next) => {
+// After user login 'UserName' update controller
+export const updateUserNameOfUserAndSeller = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
     const seller = await Seller.findOne({ user: req.user.id });
 
-    if (seller && user) {
-      if (seller.user.toString() === user.id) {
-        if (
-          seller.sellerName !== req.body.name ||
-          seller.email !== req.body.email ||
-          seller.phoneNumber !== req.body.phoneNumber
-        ) {
-          user.name = req.body.name;
-          user.email = req.body.email;
-          user.phoneNumber = req.body.phoneNumber;
-          seller.sellerName = req.body.name;
-          seller.email = req.body.email;
-          seller.phoneNumber = req.body.phoneNumber;
+    if (!user) {
+      return res
+        .status(404)
+        .send({ success: false, message: "User not found" });
+    } else {
+      if (user && seller) {
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.phoneNumber = req.body.phoneNumber;
+        seller.sellerName = req.body.name;
+        seller.email = req.body.email;
+        seller.phoneNumber = req.body.phoneNumber;
 
-          await user.save({
-            validateModifiedOnly: true,
-          });
-          await seller.save({
-            validateModifiedOnly: true,
-          });
+        await user.save({ validateModifiedOnly: true });
+        await seller.save({ validateModifiedOnly: true });
 
-          res.status(201).send({
-            success: true,
-            user,
-          });
-        }
+        return res.status(201).send({
+          success: true,
+          user,
+        });
+      } else if (user && !seller) {
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.phoneNumber = req.body.phoneNumber;
+
+        await user.save({ validateModifiedOnly: true });
+
+        res.status(201).send({
+          success: true,
+          user,
+        });
       }
-    } else if (user && !seller) {
-      user.name = req.body.name;
-      user.email = req.body.email;
-      user.phoneNumber = req.body.phoneNumber;
-
-      await user.save();
-
-      res.status(201).send({
-        success: true,
-        user,
-      });
     }
   } catch (error) {
     res.status(500).send({ success: false, message: error.message });

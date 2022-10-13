@@ -8,9 +8,7 @@ const Loginpage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { error, loading, success, isAuthenticated } = useSelector(
-    (state) => state.user
-  );
+  const { error, isAuthenticated } = useSelector((state) => state.user);
 
   const [user, setUser] = useState({
     email: "",

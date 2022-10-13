@@ -4,18 +4,25 @@ import React from "react";
 import { CgClose } from "react-icons/cg";
 import { AiOutlineUser, AiOutlineHome } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+import { setToggleMenu } from "../features/toggleSlice";
 import categories from "./category";
 
-const NavMenu = ({ toggleDemo, setToggleDemo }) => {
+const NavMenu = () => {
+  const dispatch = useDispatch();
+  const { toggleMenu } = useSelector((state) => state.toggle);
   const { isAuthenticated, user } = useSelector((state) => state.user);
+
+  const handleToggleToFalse = () => {
+    dispatch(setToggleMenu(false));
+  };
 
   return (
     <>
       <div
         className={
-          toggleDemo
+          toggleMenu
             ? "w-full h-screen flex font-poppins absolute top-0 right-0 z-10"
             : "w-full h-screen flex font-poppins absolute top-0 right-full z-0"
         }
@@ -40,7 +47,7 @@ const NavMenu = ({ toggleDemo, setToggleDemo }) => {
           <Link
             to="/"
             className="flex items-center justify-between  px-5 py-4"
-            onClick={() => setToggleDemo(false)}
+            onClick={handleToggleToFalse}
           >
             <h1 className="text-2xl font-bold">Amazon Home</h1>
             <AiOutlineHome size={25} />
@@ -60,7 +67,7 @@ const NavMenu = ({ toggleDemo, setToggleDemo }) => {
           <CgClose
             size={30}
             className="mt-10 hover:cursor-pointer text-white"
-            onClick={() => setToggleDemo(false)}
+            onClick={handleToggleToFalse}
           />
         </div>
       </div>

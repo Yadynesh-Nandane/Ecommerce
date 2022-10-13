@@ -11,7 +11,6 @@ import StarRatings from "react-star-ratings";
 import Header from "../components/Header";
 import { userSingleProduct, clearErrors } from "../actions/productActions";
 import Loader from "../components/Loader";
-import NavMenu from "../components/NavMenu";
 
 const ProductDetailsPage = () => {
   const dispatch = useDispatch();
@@ -20,7 +19,6 @@ const ProductDetailsPage = () => {
   const { loading, product, error } = useSelector(
     (state) => state.singleProduct
   );
-  const { toggleMenu } = useSelector((state) => state.toggle);
 
   useEffect(() => {
     if (error) {
@@ -34,8 +32,6 @@ const ProductDetailsPage = () => {
     <>
       {loading ? (
         <Loader />
-      ) : toggleMenu ? (
-        <NavMenu />
       ) : (
         <>
           <Header />

@@ -7,6 +7,9 @@ module.exports = {
         slidein: "slidein 0.25s ease-in-out",
         slideout: "slideout 0.25s ease-in-out",
       },
+      backgroundImage: {
+        amazon: "url('./src/assets/amazon.png')",
+      },
       boxShadow: {
         "3xl": "0 35px 60px -15px rgba(0,0,0,0.3)",
       },

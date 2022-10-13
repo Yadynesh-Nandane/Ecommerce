@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { store } from "./store";
@@ -7,9 +7,9 @@ import Homepage from "./pages/Homepage";
 import Loginpage from "./pages/Loginpage";
 import Registerpage from "./pages/Registerpage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
-import YourAccount from "./pages/YourAccountPage";
-import LoginSecurity from "./pages/LoginSecurityPage";
-import EditLoginSecurityPage from "./pages/EditLoginSecurityPage";
+import YourAccountPage from "./pages/YourAccountPage";
+import LoginSecurityPage from "./pages/LoginSecurityPage";
+import EditUserLoginPage from "./pages/EditUserLoginPage";
 
 const App = () => {
   useEffect(() => {
@@ -24,12 +24,12 @@ const App = () => {
           <Route exact path="signin" element={<Loginpage />} />
           <Route exact path="signup" element={<Registerpage />} />
           <Route exact path="product/:id" element={<ProductDetailsPage />} />
-          <Route exact path="account" element={<YourAccount />} />
-          <Route exact path="security" element={<LoginSecurity />} />
+          <Route exact path="account" element={<YourAccountPage />} />
+          <Route exact path="security" element={<LoginSecurityPage />} />
           <Route
             exact
-            path="security/edit/:name"
-            element={<EditLoginSecurityPage />}
+            path="security/edit/:fieldName"
+            element={<EditUserLoginPage />}
           />
         </Routes>
       </Router>

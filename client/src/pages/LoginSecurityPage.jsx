@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Logo from "../assets/amazon_PNG11.png";
 import Loader from "../components/Loader";
 import LoginSecurityEdit from "../components/LoginSecurityEdit";
 
@@ -11,16 +10,16 @@ const LoginSecurity = () => {
 
   const userData = [
     {
-      name: "Name: ",
-      value: user?.user?.name,
+      fieldName: "Name",
+      fieldValue: user?.user?.name,
     },
     {
-      name: "Email: ",
-      value: user?.user?.email,
+      fieldName: "Email",
+      fieldValue: user?.user?.email,
     },
     {
-      name: "Mobile Phone Number:",
-      value: user?.user?.phoneNumber,
+      fieldName: "Mobile Phone Number",
+      fieldValue: user?.user?.phoneNumber,
     },
   ];
 
@@ -34,7 +33,7 @@ const LoginSecurity = () => {
             <header className="w-full h-20 flex items-center bg-[#131921]">
               <Link to="/">
                 <img
-                  src={Logo}
+                  src=""
                   alt="https://links.papareact.com/f90"
                   className="w-20 h-8 ml-5"
                 />
@@ -45,9 +44,9 @@ const LoginSecurity = () => {
               <div className="mb-10 border border-black/50 rounded-md overflow-hidden">
                 {userData.map((user, i) => (
                   <LoginSecurityEdit
-                    key={user.name}
-                    value={user.value}
-                    name={user.name}
+                    key={user.fieldName}
+                    value={user.fieldValue}
+                    name={user.fieldName}
                   />
                 ))}
               </div>

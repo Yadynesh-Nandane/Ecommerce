@@ -64,3 +64,38 @@ export const userReducer = (state = { user: {} }, action) => {
       return state;
   }
 };
+
+export const editUserProfileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case userContants.EDIT_USERNAME_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case userContants.EDIT_USERNAME_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+      };
+    case userContants.EDIT_USERNAME_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case userContants.EDIT_USERNAME_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      };
+    case userContants.CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
