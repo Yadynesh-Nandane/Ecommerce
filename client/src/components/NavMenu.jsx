@@ -14,6 +14,8 @@ const NavMenu = () => {
   const { toggleMenu } = useSelector((state) => state.toggle);
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
+  const accountusername = user?.user?.name.split(" ");
+
   const handleToggleToFalse = () => {
     dispatch(setToggleMenu(false));
   };
@@ -23,19 +25,19 @@ const NavMenu = () => {
       <div
         className={
           toggleMenu
-            ? "w-full h-screen flex font-poppins absolute top-0  z-10"
-            : "w-full h-screen flex font-poppins absolute top-0  z-0"
+            ? "w-full h-screen flex font-poppins absolute top-0 z-10"
+            : "w-full h-screen flex font-poppins absolute top-0 z-0"
         }
       >
         <div className="flex flex-col w-4/5 lg:w-1/5 h-full bg-white">
           <div className="flex flex-col w-full h-[170px] lg:h-[65px] bg-[#131921] text-white">
-            <div className="flex items-center justify-end p-5">
+            <div className="flex items-center justify-end lg:justify-start p-5">
               {!isAuthenticated ? (
                 <Link to="/signin">Sign in!</Link>
               ) : (
                 <>
-                  <p className="mr-3">{user?.user?.name}</p>
-                  <AiOutlineUser size={25} />
+                  <p className="mr-3">{accountusername[0]}</p>
+                  <AiOutlineUser size={25} className=" flex lg:hidden" />
                 </>
               )}
             </div>
@@ -63,7 +65,10 @@ const NavMenu = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/5 lg:w-4/5 h-full flex items-start justify-center lg:justify-start  bg-black bg-opacity-50 opacity-100">
+        <div
+          className="w-1/5 lg:w-4/5 h-full flex items-start justify-center lg:justify-start  bg-black bg-opacity-50 opacity-100"
+          onClick={handleToggleToFalse}
+        >
           <CgClose
             size={30}
             className="mt-10 lg:mt-5 lg:ml-5 hover:cursor-pointer text-white"

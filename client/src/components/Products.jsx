@@ -10,6 +10,7 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const { products, error } = useSelector((state) => state.products);
+  const { toggleMenu } = useSelector((state) => state.toggle);
 
   useEffect(() => {
     if (error) {

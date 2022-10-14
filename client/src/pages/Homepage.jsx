@@ -8,6 +8,8 @@ import Products from "../components/Products";
 const Homepage = () => {
   const { loading } = useSelector((state) => state.user);
 
+  const { toggleMenu } = useSelector((state) => state.toggle);
+
   return (
     <>
       {loading ? (
@@ -17,7 +19,7 @@ const Homepage = () => {
       ) : (
         <>
           <Header />
-          <Products />/
+          <Products />
         </>
       )}
     </>

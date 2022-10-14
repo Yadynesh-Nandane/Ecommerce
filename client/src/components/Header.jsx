@@ -7,13 +7,12 @@ import { BsPerson } from "react-icons/bs";
 import { BiCaretDown } from "react-icons/bi";
 
 import { setToggleMenu } from "../features/toggleSlice";
-import NavMenu from "./NavMenu";
 import categories from "./category";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  const { toggleMenu } = useSelector((state) => state.toggle);
+  // const { toggleMenu } = useSelector((state) => state.toggle);
 
   const [seletedCategory, setSelectedCategory] = useState("All");
 
@@ -33,7 +32,6 @@ const Header = () => {
 
   return (
     <>
-      {toggleMenu && <NavMenu />}
       <header className="w-full h-[120px] lg:h-[120px] flex flex-col">
         <div className="w-full h-full lg:h-[70px] px-2 bg-[#131921]">
           <div className="w-full h-[46px] flex items-center justify-between pt-4 lg:pt-6 lg:px-6">
