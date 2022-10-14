@@ -23,12 +23,12 @@ const NavMenu = () => {
       <div
         className={
           toggleMenu
-            ? "w-full h-screen flex font-poppins absolute top-0 right-0 z-10"
-            : "w-full h-screen flex font-poppins absolute top-0 right-full z-0"
+            ? "w-full h-screen flex font-poppins absolute top-0  z-10"
+            : "w-full h-screen flex font-poppins absolute top-0  z-0"
         }
       >
-        <div className="flex flex-col w-4/5 h-full bg-white">
-          <div className="flex flex-col w-full h-[170px] bg-[#131921] text-white">
+        <div className="flex flex-col w-4/5 lg:w-1/5 h-full bg-white">
+          <div className="flex flex-col w-full h-[170px] lg:h-[65px] bg-[#131921] text-white">
             <div className="flex items-center justify-end p-5">
               {!isAuthenticated ? (
                 <Link to="/signin">Sign in!</Link>
@@ -39,7 +39,7 @@ const NavMenu = () => {
                 </>
               )}
             </div>
-            <div className="flex flex-col items-start justify-start px-5 py-4">
+            <div className="flex flex-col items-start justify-start px-5 py-4 lg:hidden">
               <span className="text-xl font-semibold">Browse</span>
               <span className="text-3xl">Amazon</span>
             </div>
@@ -63,10 +63,10 @@ const NavMenu = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/5 h-full flex items-start justify-center bg-black bg-opacity-50 opacity-100">
+        <div className="w-1/5 lg:w-4/5 h-full flex items-start justify-center lg:justify-start  bg-black bg-opacity-50 opacity-100">
           <CgClose
             size={30}
-            className="mt-10 hover:cursor-pointer text-white"
+            className="mt-10 lg:mt-5 lg:ml-5 hover:cursor-pointer text-white"
             onClick={handleToggleToFalse}
           />
         </div>

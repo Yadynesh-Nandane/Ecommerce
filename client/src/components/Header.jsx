@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { MdSearch } from "react-icons/md";
@@ -16,22 +16,11 @@ const Header = () => {
   const { toggleMenu } = useSelector((state) => state.toggle);
 
   const [seletedCategory, setSelectedCategory] = useState("All");
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
 
   const accountusername = user?.user?.name.split(" ");
 
   const handleToggleToTrue = () => {
     dispatch(setToggleMenu(true));
-  };
-
-  const detectSize = () => {
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
   };
 
   const handleSelectedSubmit = (e) => {
@@ -41,18 +30,6 @@ const Header = () => {
   const handleSearchFunctionally = (e) => {
     e.preventDefault();
   };
-
-  useEffect(() => {
-    window.addEventListener("resize", detectSize);
-
-    if (windowSize.width > 1024) {
-      dispatch(setToggleMenu(false));
-    }
-
-    return () => {
-      window.removeEventListener("resize", detectSize);
-    };
-  }, [windowSize.width, dispatch]);
 
   return (
     <>
@@ -290,7 +267,10 @@ const Header = () => {
           </div>
         </div>
         <div className="hidden lg:w-full lg:h-[50px] lg:flex lg:items-center justify-between bg-[#232f3e]  lg:px-9 text-white">
-          <div className="flex items-center border border-white/0 hover:border hover:border-white  py-1 px-1.5 rounded-sm ">
+          <div
+            className="flex items-center border border-white/0 hover:border hover:border-white  py-1 px-1.5 rounded-sm"
+            onClick={handleToggleToTrue}
+          >
             <GiHamburgerMenu size={20} className="mr-1" />
             <span className="text-md font-semibold">All</span>
           </div>
