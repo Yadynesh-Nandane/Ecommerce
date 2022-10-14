@@ -20,7 +20,7 @@ const Products = () => {
   }, [dispatch, error]);
 
   return (
-    <div className="w-full h-full flex flex-col font-poppins">
+    <div className="w-full h-full flex flex-col font-poppins" id="container">
       {products?.allProducts?.map((product) => (
         <Link
           to={`product/${product?._id}`}
@@ -58,24 +58,3 @@ const Products = () => {
 };
 
 export default Products;
-
-{
-  /* <div className="w-auto h-auto flex  border-2 my-2 mx-4">
-  <div className="w-2/5 h-full py-10 px-4">
-    <img
-      src="https://m.media-amazon.com/images/I/71ZyBh4LQuL._AC_UL320_.jpg"
-      alt="image apple"
-      className="w-full h-full object-contain"
-    />
-  </div>
-  <div className="w-3/5 h-full py-4 px-2">
-    <h2>
-      Samsung IPS, Bezel Less, Flat, Flicker Free 1920 x 1080 Pixels LED
-      Monitor-(Dark Blue Gray)
-    </h2>
-    <p className="my-2">Stars</p>
-    <h3 className="text-2xl my-2">Price</h3>
-    <p className="my-2">Electronics</p>
-  </div>
-</div>; */
-}
