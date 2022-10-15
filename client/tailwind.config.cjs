@@ -3,10 +3,6 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      animation: {
-        slidein: "slidein 0.25s ease-in-out",
-        slideout: "slideout 0.25s ease-in-out",
-      },
       backgroundImage: {
         amazon: "url('./src/assets/amazon.png')",
       },
@@ -14,22 +10,30 @@ module.exports = {
         "3xl": "0 35px 60px -15px rgba(0,0,0,0.3)",
       },
       keyframes: {
-        slidein: {
+        "slide-in": {
           "0%": {
-            opacity: 0,
+            "-webkit-transform": "translateX(-200px)",
+            transform: "translateX(-200px)",
           },
           "100%": {
-            opacity: 1,
+            "-webkit-transform": "translateX(0px)",
+            transform: "translateX(0px)",
           },
         },
-        slideout: {
+        "slide-out": {
           "0%": {
-            opacity: 1,
+            "-webkit-transform": "translateX(0px)",
+            transform: "translateX(0px)",
           },
           "100%": {
-            opacity: 0,
+            "-webkit-transform": "translateX(-200px)",
+            transform: "translateX(-200px)",
           },
         },
+      },
+      animation: {
+        "slide-in": "slide-in 0.5s ease-out",
+        "slide-out": "slide-out 0.5s ease-out",
       },
       fontFamily: {
         poppins: "'PT Sans', sans-serif",

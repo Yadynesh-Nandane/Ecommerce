@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { MdSearch } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -7,19 +7,25 @@ import { BsPerson } from "react-icons/bs";
 import { BiCaretDown } from "react-icons/bi";
 
 import { setToggleMenu } from "../features/toggleSlice";
-import categories from "./category";
+import { categories, headerNavigations } from "../data";
+import { signOut } from "../actions/userActions";
 
 const Header = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  // const { toggleMenu } = useSelector((state) => state.toggle);
 
   const [seletedCategory, setSelectedCategory] = useState("All");
+  const [hover, setHover] = useState(false);
 
   const accountusername = user?.user?.name.split(" ");
 
   const handleToggleToTrue = () => {
     dispatch(setToggleMenu(true));
+  };
+
+  const handleSignOut = () => {
+    dispatch(signOut());
   };
 
   const handleSelectedSubmit = (e) => {
@@ -120,6 +126,8 @@ const Header = () => {
                 <Link
                   to="/account"
                   className="hidden lg:w-[150px] lg:flex lg:flex-col lg:px-5 lg:py-2 lg:ml-6 text-white lg:border lg:border-white/0 lg:hover:border lg:hover:border-white rounded-md"
+                  onMouseEnter={() => setHover(true)}
+                  onMouseLeave={() => setHover(false)}
                 >
                   <p className="flex text-xs font-semibold">
                     <span>Hello, </span>
@@ -135,19 +143,78 @@ const Header = () => {
               ) : (
                 <Link
                   to="/signin"
-                  className="hidden lg:w-[150px] lg:flex lg:flex-col lg:px-3 lg:py-2 lg:ml-6 text-white lg:border lg:border-white/0 lg:hover:border lg:hover:border-white rounded-md"
+                  className="hidden lg:w-[110px] lg:flex lg:flex-col justify-center lg:px-3 lg:py-2 lg:ml-6 text-white lg:border lg:border-white/0 lg:hover:border lg:hover:border-white rounded-md"
+                  onMouseEnter={() => setHover(true)}
+                  onMouseLeave={() => setHover(false)}
                 >
                   <p className="flex text-xs font-semibold">
                     <span>Hello, </span> <span>sign in</span>
                   </p>
-                  <p className="flex items-center text-sm font-bold">
-                    <span>Accounts & Lists</span>
+                  <p className="flex items-center h-[22px] text-sm font-bold">
+                    <span>Accounts</span>
                     <span>
                       <BiCaretDown />
                     </span>
                   </p>
                 </Link>
               )}
+            </div>
+
+            <div
+              className={
+                hover
+                  ? "flex flex-col absolute top-14 right-40 w-[300px] h-auto p-3 bg-white rounded-md shadow-lg"
+                  : "hidden"
+              }
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+            >
+              {isAuthenticated ? (
+                <></>
+              ) : (
+                <div className="w-full h-[80px] flex flex-col border-b items-center justify-center">
+                  <div
+                    className="w-[150px] h-[40px] flex items-center justify-center font-semibold bg-[#f3a847] cursor-pointer rounded-md mb-1 transition-all duration-100 ease-out"
+                    onClick={() => {
+                      navigate("/signin");
+                    }}
+                  >
+                    Sign in
+                  </div>
+                  <div className="text-sm font-semibold">
+                    <span>New customer? </span>
+                    <Link
+                      to="/signup"
+                      className="text-blue-700 hover:text-[#f3a847] hover:underline transition-all duration-100 ease-out"
+                    >
+                      Start here
+                    </Link>
+                  </div>
+                </div>
+              )}
+              <div className="flex flex-col pl-4 my-3">
+                <h3 className="font-semibold text-xl">Your Account</h3>
+                <div className="flex flex-col mt-2 text-sm">
+                  <Link
+                    to="/account"
+                    className="hover:text-[#f3a847] hover:underline transition-all duration-200 ease-out"
+                  >
+                    Your Account
+                  </Link>
+                  <Link className="hover:text-[#f3a847] hover:underline transition-all duration-200 ease-out">
+                    Your orders
+                  </Link>
+                  <Link className="hover:text-[#f3a847] hover:underline transition-all duration-200 ease-out">
+                    Your Seller Account
+                  </Link>
+                  <div
+                    className="hover:text-[#f3a847] hover:underline cursor-pointer transition-all duration-200 ease-out"
+                    onClick={handleSignOut}
+                  >
+                    Sign out
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Laptop orders and returns */}
@@ -264,38 +331,23 @@ const Header = () => {
             </form>
           </div>
         </div>
-        <div className="hidden lg:w-full lg:h-[50px] lg:flex lg:items-center justify-between bg-[#232f3e]  lg:px-9 text-white">
+        <div className="hidden lg:w-full lg:h-[50px] lg:flex lg:items-center bg-[#232f3e]  lg:px-9 text-white ">
           <div
-            className="flex items-center border border-white/0 hover:border hover:border-white  py-1 px-1.5 rounded-sm"
+            className="flex items-center border border-white/0 hover:border hover:border-white mr-24 py-1 px-1.5 rounded-sm cursor-pointer transition-all duration-100 ease-out"
             onClick={handleToggleToTrue}
           >
             <GiHamburgerMenu size={20} className="mr-1" />
             <span className="text-md font-semibold">All</span>
           </div>
-          <div className="border border-white/0 hover:border hover:border-white  py-1 px-1.5">
-            Best Sellers
-          </div>
-          <div className="border border-white/0 hover:border hover:border-white  py-1 px-1.5">
-            Mobiles
-          </div>
-          <div className="border border-white/0 hover:border hover:border-white  py-1 px-1.5">
-            {" "}
-            Electronics{" "}
-          </div>
-          <div className="border border-white/0 hover:border hover:border-white  py-1 px-1.5">
-            Books
-          </div>
-          <div className="border border-white/0 hover:border hover:border-white  py-1 px-1.5">
-            Fashion
-          </div>
-          <div className="border border-white/0 hover:border hover:border-white  py-1 px-1.5">
-            Home & Kitchen
-          </div>
-          <div className="border border-white/0 hover:border hover:border-white  py-1 px-1.5">
-            Computers
-          </div>
-          <div className="border border-white/0 hover:border hover:border-white  py-1 px-1.5">
-            Sell
+          <div className="flex w-full justify-between">
+            {headerNavigations.map(({ element, name, value }) => (
+              <Link
+                className="border border-white/0 hover:border hover:border-white  py-1 px-1.5 rounded-sm transition-all duration-100 ease-out"
+                key={value}
+              >
+                {name}
+              </Link>
+            ))}
           </div>
         </div>
       </header>
