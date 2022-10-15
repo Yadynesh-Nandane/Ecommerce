@@ -33,10 +33,6 @@ const Registerpage = () => {
   };
 
   useEffect(() => {
-    if (error) {
-      dispatch(clearErrors());
-    }
-
     if (isAuthenticated) {
       navigate("/");
     }

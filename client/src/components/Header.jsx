@@ -131,7 +131,7 @@ const Header = () => {
                 >
                   <p className="flex text-xs font-semibold">
                     <span>Hello, </span>
-                    <span>{accountusername[0]}</span>
+                    <span className="ml-1">{accountusername[0]}</span>
                   </p>
                   <p className="flex items-center text-xs font-bold">
                     <span>Accounts & Lists</span>
@@ -148,7 +148,8 @@ const Header = () => {
                   onMouseLeave={() => setHover(false)}
                 >
                   <p className="flex text-xs font-semibold">
-                    <span>Hello, </span> <span>sign in</span>
+                    <span>Hello, </span>
+                    <span className="ml-1">sign in</span>
                   </p>
                   <p className="flex items-center h-[22px] text-sm font-bold">
                     <span>Accounts</span>
@@ -201,10 +202,16 @@ const Header = () => {
                   >
                     Your Account
                   </Link>
-                  <Link className="hover:text-[#f3a847] hover:underline transition-all duration-200 ease-out">
+                  <Link
+                    to="/orders"
+                    className="hover:text-[#f3a847] hover:underline transition-all duration-200 ease-out"
+                  >
                     Your orders
                   </Link>
-                  <Link className="hover:text-[#f3a847] hover:underline transition-all duration-200 ease-out">
+                  <Link
+                    to="/seller/me"
+                    className="hover:text-[#f3a847] hover:underline transition-all duration-200 ease-out"
+                  >
                     Your Seller Account
                   </Link>
                   <div
