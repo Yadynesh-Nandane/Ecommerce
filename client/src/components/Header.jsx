@@ -26,6 +26,7 @@ const Header = () => {
 
   const handleSignOut = () => {
     dispatch(signOut());
+    navigate("/");
   };
 
   const handleSelectedSubmit = (e) => {
@@ -203,7 +204,7 @@ const Header = () => {
                     Your Account
                   </Link>
                   <Link
-                    to="/orders"
+                    to="/orders-history"
                     className="hover:text-[#f3a847] hover:underline transition-all duration-200 ease-out"
                   >
                     Your orders
@@ -225,13 +226,16 @@ const Header = () => {
             </div>
 
             {/* Laptop orders and returns */}
-            <div className="hidden lg:w-[130px] lg:flex lg:flex-col lg:px-3 lg:py-2 lg:mr-4 text-white lg:border lg:border-white/0 lg:hover:border lg:hover:border-white rounded-md">
+            <Link
+              to="/orders-history"
+              className="hidden lg:w-[130px] lg:flex lg:flex-col lg:px-3 lg:py-2 lg:mr-4 text-white lg:border lg:border-white/0 lg:hover:border lg:hover:border-white rounded-md"
+            >
               <p className="font-semibold text-xs">Returns</p>
               <p className="font-bold text-sm flex">
                 <span>&</span>
                 <span>Orders</span>
               </p>
-            </div>
+            </Link>
 
             {/* Mobile Sign in, Cart & Laptop Cart */}
             <div className="h-full flex items-center">
@@ -292,7 +296,10 @@ const Header = () => {
               </div>
 
               {/* Laptop Cart */}
-              <div className="hidden lg:w-[85px] lg:h-[50px] lg:flex lg:border lg:border-white/0 lg:hover:border lg:hover:border-white lg:rounded-md">
+              <Link
+                to="/cart"
+                className="hidden lg:w-[85px] lg:h-[50px] lg:flex lg:border lg:border-white/0 lg:hover:border lg:hover:border-white lg:rounded-md"
+              >
                 <span
                   className="w-[50px] h-full bg-amazon"
                   style={{
@@ -301,13 +308,13 @@ const Header = () => {
                     backgroundRepeat: "no-repeat",
                   }}
                 ></span>
-                <span className="absolute top-2 right-[78px] font-semibold text-xl text-[#f3a847]">
+                <span className="absolute top-2.5 right-[78px] font-semibold text-xl text-[#f3a847]">
                   0
                 </span>
                 <span className="absolute top-9 right-10 text-white text-sm font-bold">
                   Cart
                 </span>
-              </div>
+              </Link>
             </div>
           </div>
           <div className="w-full h-[46px] flex lg:hidden items-center mt-3">

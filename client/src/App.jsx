@@ -30,14 +30,14 @@ const App = () => {
           {toggleMenu && <NavMenu />}
           <Routes>
             <Route exact path="/" element={<Homepage />} />
-            <Route exact path="signin" element={<Loginpage />} />
-            <Route exact path="signup" element={<Registerpage />} />
-            <Route exact path="product/:id" element={<ProductDetailsPage />} />
-            <Route exact path="account" element={<YourAccountPage />} />
-            <Route exact path="security" element={<LoginSecurityPage />} />
+            <Route exact path="/signin" element={<Loginpage />} />
+            <Route exact path="/signup" element={<Registerpage />} />
+            <Route exact path="/product/:id" element={<ProductDetailsPage />} />
+            <Route exact path="/account" element={<YourAccountPage />} />
+            <Route exact path="/security" element={<LoginSecurityPage />} />
             <Route
               exact
-              path="security/edit/:fieldName"
+              path="/security/edit/:fieldName"
               element={<EditUserLoginPage />}
             />
           </Routes>

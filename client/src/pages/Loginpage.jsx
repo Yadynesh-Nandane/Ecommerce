@@ -22,9 +22,9 @@ const Loginpage = () => {
   };
 
   useEffect(() => {
-    if (error) {
-      dispatch(clearErrors());
-    }
+    // if (error) {
+    //   dispatch(clearErrors());
+    // }
 
     if (isAuthenticated) {
       navigate("/");
