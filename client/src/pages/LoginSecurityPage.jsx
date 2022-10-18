@@ -31,30 +31,37 @@ const LoginSecurity = () => {
         isAuthenticated && (
           <div className="w-full h-full">
             <header className="w-full h-20 flex items-center bg-[#131921]">
-              <Link to="/">
-                <img
-                  src=""
-                  alt="https://links.papareact.com/f90"
-                  className="w-20 h-8 ml-5"
-                />
+              <Link to="/" className="w-[97px] h-[30px] ml-4 md:ml-16 lg:ml-24">
+                <span
+                  className="w-full h-full bg-amazon float-left -indent-[500px]"
+                  style={{
+                    backgroundPositionX: "-10px",
+                    backgroundPositionY: "-84px",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                ></span>
               </Link>
             </header>
             <main className="w-full flex flex-col p-4">
-              <h1 className="text-3xl font-semibold mb-6">Login & Security</h1>
-              <div className="mb-10 border border-black/50 rounded-md overflow-hidden">
-                {userData.map((user, i) => (
-                  <LoginSecurityEdit
-                    key={user.fieldName}
-                    value={user.fieldValue}
-                    name={user.fieldName}
-                  />
-                ))}
+              <div className="flex flex-col w-full h-full md:mx-auto md:w-[550px] md:h-auto">
+                <h1 className="text-3xl font-semibold mb-6">
+                  Login & Security
+                </h1>
+                <div className="mb-10 border border-black/50 rounded-md overflow-hidden">
+                  {userData.map((user, i) => (
+                    <LoginSecurityEdit
+                      key={user.fieldName}
+                      value={user.fieldValue}
+                      name={user.fieldName}
+                    />
+                  ))}
+                </div>
+                <Link to="/" className="w-full h-12 flex justify-center">
+                  <span className="w-11/12 h-full flex items-center justify-center text-xl font-semibold rounded-md bg-[#f3a847]">
+                    Done
+                  </span>
+                </Link>
               </div>
-              <Link to="/" className="w-full h-12 flex justify-center">
-                <span className="w-11/12 h-full flex items-center justify-center text-xl font-semibold rounded-md bg-[#f3a847]">
-                  Done
-                </span>
-              </Link>
             </main>
           </div>
         )
