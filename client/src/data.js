@@ -1,31 +1,32 @@
 export const categories = [
   {
-    name: "All Categories",
-    value: "All",
-  },
-  {
-    name: "Books",
-    value: "Books",
-  },
-  {
-    name: "Clothing & Accessories",
-    value: "Clothing & Accessories",
-  },
-  {
-    name: "Computers & Accessories",
-    value: "Computers & Accessories",
-  },
-  {
-    name: "Electronics",
-    value: "Electronics",
+    name: "Watches",
+    value: "Watches",
   },
   {
     name: "Home & Kitchen",
     value: "Home & Kitchen",
   },
   {
-    name: "Watches",
-    value: "Watches",
+    name: "Electronics",
+    value: "Electronics",
+  },
+  {
+    name: "Computers & Accessories",
+    value: "Computers & Accessories",
+  },
+  {
+    name: "Clothing & Accessories",
+    value: "Clothing & Accessories",
+  },
+
+  {
+    name: "Books",
+    value: "Books",
+  },
+  {
+    name: "All Categories",
+    value: "All",
   },
 ];
 

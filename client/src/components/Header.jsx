@@ -354,7 +354,7 @@ const Header = () => {
             <span className="text-md font-semibold">All</span>
           </div>
           <div className="flex w-full justify-between">
-            {headerNavigations.map(({ element, name, value }) => (
+            {headerNavigations.map(({ name, value }) => (
               <Link
                 className="border border-white/0 hover:border hover:border-white  py-1 px-1.5 rounded-sm transition-all duration-100 ease-out"
                 key={value}

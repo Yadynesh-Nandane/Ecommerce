@@ -30,7 +30,7 @@ const NavMenu = () => {
             : "w-full h-screen flex font-poppins absolute top-0 z-0"
         }
       >
-        <div className="flex flex-col w-4/5 lg:w-1/5 h-full bg-white">
+        <div className="flex flex-col w-4/5 lg:w-[350px] h-full bg-white">
           <div className="flex flex-col w-full h-auto py-5 bg-[#131921]">
             <div className="flex items-center justify-end lg:justify-start text-white">
               {!isAuthenticated ? (
@@ -92,7 +92,7 @@ const NavMenu = () => {
           <div className="flex flex-col  px-5 py-3 border-y-4 lg:border-y-2 border-gray-300">
             <h2 className="text-2xl font-bold">Categories</h2>
             <div className="flex flex-col py-2">
-              {categories.reverse().map((category) => (
+              {categories.map((category) => (
                 <Link key={category.value} to="/" className="text-lg my-2">
                   {category.name}
                 </Link>
@@ -101,7 +101,7 @@ const NavMenu = () => {
           </div>
         </div>
         <div
-          className="w-1/5 lg:w-4/5 h-full flex items-start justify-center lg:justify-start  bg-black bg-opacity-50 opacity-100"
+          className="w-1/5 lg:w-full h-full flex items-start justify-center lg:justify-start  bg-black bg-opacity-50 opacity-100"
           onClick={handleToggleToFalse}
         >
           <CgClose
