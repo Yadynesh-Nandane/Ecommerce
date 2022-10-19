@@ -8,29 +8,104 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      requried: true,
+      requried: [true, "Enter a name"],
     },
     email: {
       type: String,
-      unique: true,
-      required: [true, "Enter your email"],
+      required: [true, "Enter a email"],
+      unique: [true, "User already exists"],
+      lowercase: true,
       validate: [validator.isEmail, "Invalid Email"],
     },
-    phoneNumber: {
+    mobileNumber: {
       type: String,
-      unique: true,
-      required: [true, "Enter your phone number"],
+      required: [true, "Enter your mobile number"],
+      length: [10, "Should be of exact 10 numbers"],
+      unique: [true, "Phone number is already taken"],
+      validate(value) {
+        if (!validator.isMobilePhone(String(value), "en-IN")) {
+          return "Invalid mobile number";
+        }
+      },
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Enter a password"],
+      validate: [validator.isStrongPassword, "Enter a strong password"],
       select: false,
     },
+    addresses: [
+      {
+        fullName: {
+          type: String,
+          trim: true,
+          required: true,
+        },
+        mobileNumber: {
+          type: String,
+          required: [true, "Enter a mobile number"],
+          length: [10, "Should be of exact 10 numbers"],
+        },
+        pinCode: {
+          type: String,
+          required: [true, "Enter a Pin Code"],
+          length: [6, "Should be of exact 6 numbers"],
+        },
+        houseNo: {
+          type: String,
+          required: [true, "Enter a House No./ Flat No./Building"],
+        },
+        areaStreet: {
+          type: String,
+          required: [true, "Enter a Area/Street"],
+        },
+        landmark: {
+          type: String,
+        },
+        townCity: {
+          type: String,
+          required: [true, "Enter a City"],
+        },
+        state: {
+          type: String,
+          required: [true, "Enter a state"],
+        },
+      },
+    ],
+    orders: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "products",
+          required: true,
+        },
+        status: {
+          type: String,
+          default: "pending",
+          enum: ["pending", "accept", "decline", "onway", "delivered"],
+        },
+        cancelled: {
+          type: Boolean,
+          default: false,
+          enum: [false, true],
+        },
+      },
+    ],
+    cart: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "products",
+          required: true,
+        },
+      },
+    ],
     role: {
       type: String,
-      enum: ["user", "seller"],
+      enum: ["user"],
       default: "user",
     },
+
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
@@ -43,6 +118,8 @@ userSchema.pre("save", async function (next) {
   }
   this.password = await bcrypt.hash(this.password, 12);
 });
+
+userSchema.path("mobileNumber").validate(function (v) {});
 
 userSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {

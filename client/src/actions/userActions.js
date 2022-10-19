@@ -4,7 +4,8 @@ import { url } from "../api";
 import * as userContants from "../constants/userConstants";
 
 export const signUp =
-  (name, email, phoneNumber, password, confirmPassword) => async (dispatch) => {
+  (name, email, mobileNumber, password, confirmPassword) =>
+  async (dispatch) => {
     try {
       dispatch({ type: userContants.USER_SIGNUP_REQUEST });
 
@@ -17,7 +18,7 @@ export const signUp =
 
       const { data } = await axios.post(
         `${url}/register`,
-        { name, email, phoneNumber, password, confirmPassword },
+        { name, email, mobileNumber, password, confirmPassword },
         config
       );
 

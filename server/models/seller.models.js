@@ -1,20 +1,24 @@
 import mongoose from "mongoose";
+import validator from "validator";
 
 const sellerSchema = new mongoose.Schema(
   {
-    sellerName: {
+    name: {
       type: String,
-      required: true,
+      required: [true, "Enter a name"],
     },
     email: {
       type: String,
-      unique: true,
-      required: true,
+      required: [true, "Enter a email"],
+      lowercase: true,
+      validate: [validator.isEmail, "Invalid Email"],
+      unique: [true, "User already exists"],
     },
-    phoneNumber: {
+    mobileNumber: {
       type: String,
-      unique: true,
-      required: true,
+      required: [true, "Enter your phone number"],
+      length: [10, "Should be of exact 10 numbers"],
+      unique: [true, "Phone number is already taken"],
     },
     businessDetails: {
       businessName: {
@@ -24,11 +28,13 @@ const sellerSchema = new mongoose.Schema(
       businessAddress: {
         type: String,
         required: [true, "Please enter business address"],
+        minlength: [5, "Insufficient Address Details"],
       },
     },
     aboutSeller: {
       type: String,
-      required: [true, "About seller is required"],
+      required: [true, "Please enter something about you"],
+      maxlength: [256, "Input exceeds 256 characters"],
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

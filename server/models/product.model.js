@@ -4,37 +4,40 @@ const productSchema = mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: [true, "Enter a product name"],
+      minlength: [8, "Should be atleast 8 characters"],
+      maxlength: [64, "Should be atmost 64 characters"],
     },
     subtitle: {
       type: String,
     },
     description: {
       type: String,
-      required: true,
-      trim: true,
+      required: [true, "Enter a product description"],
+      minlength: [20, "Should be atleast 20 characters"],
     },
     category: {
       product_category: {
         type: String,
-        required: true,
+        required: [true, "Enter product category"],
       },
       product_subcategory: {
         type: String,
-        required: true,
+        required: [true, "Enter product sub-category"],
       },
     },
     brand: {
       type: String,
-      required: true,
+      required: [true, "Enter brand name"],
     },
     price: {
       type: Number,
-      required: true,
+      required: [true, "Enter product price"],
+      min: 1,
     },
     size: {
       type: String,
-      required: true,
+      required: [true, "Enter dimensions"],
     },
     images: [
       {
@@ -44,17 +47,18 @@ const productSchema = mongoose.Schema(
     ],
     color: {
       type: String,
-      required: true,
+      required: [true, "Enter product color"],
     },
     features: [
       {
         type: String,
-        required: true,
+        required: [true, "Enter a feature list"],
       },
     ],
     totalQuantity: {
       type: Number,
-      required: true,
+      required: [true, "Enter product quantity"],
+      min: 1,
     },
     totalReviews: {
       type: Number,
@@ -77,11 +81,15 @@ const productSchema = mongoose.Schema(
         },
         rating: {
           type: Number,
-          required: true,
+          required: [true, "Enter rating"],
+          min: 1,
+          max: 5,
         },
         comment: {
           type: String,
-          required: true,
+          required: [true, "Enter comment"],
+          minlength: [8, "Input be atleast 8 characters"],
+          maxlength: [256, "Input exceeds 256 characters"],
         },
       },
     ],

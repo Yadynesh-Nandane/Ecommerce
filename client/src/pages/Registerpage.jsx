@@ -13,7 +13,7 @@ const Registerpage = () => {
   const [newUser, setNewUser] = useState({
     name: "",
     email: "",
-    phoneNumber: "",
+    mobileNumber: "",
     password: "",
     confirmPassword: "",
   });
@@ -25,7 +25,7 @@ const Registerpage = () => {
       signUp(
         newUser.name,
         newUser.email,
-        newUser.phoneNumber,
+        newUser.mobileNumber,
         newUser.password,
         newUser.confirmPassword
       )
@@ -83,9 +83,9 @@ const Registerpage = () => {
               className="w-full border-b-2 outline-none my-2 lg:my-3 py-2 px-2"
               name="phoneNumber"
               placeholder="Phone number"
-              value={newUser.phoneNumber}
+              value={newUser.mobileNumber}
               onChange={(e) =>
-                setNewUser({ ...newUser, phoneNumber: e.target.value })
+                setNewUser({ ...newUser, mobileNumber: e.target.value })
               }
             />
             <input

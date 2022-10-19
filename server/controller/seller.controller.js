@@ -14,9 +14,9 @@ export const createSeller = async (req, res, next) => {
     }
 
     req.body.user = req.user.id;
-    req.body.sellerName = userData.name;
+    req.body.name = userData.name;
     req.body.email = userData.email;
-    req.body.phoneNumber = userData.phoneNumber;
+    req.body.mobileNumber = userData.mobileNumber;
 
     const seller = await Seller.create(req.body);
 
@@ -73,16 +73,16 @@ export const updateSellerDetails = async (req, res, next) => {
     } else {
       if (userData.id === sellerData.user.toString()) {
         if (
-          userData.name !== req.body.sellerName ||
+          userData.name !== req.body.name ||
           userData.email !== req.body.email ||
-          userData.phoneNumber !== req.body.phoneNumber
+          userData.mobileNumber !== req.body.mobileNumber
         ) {
-          userData.name = req.body.sellerName;
+          userData.name = req.body.name;
           userData.email = req.body.email;
-          userData.phoneNumber = req.body.phoneNumber;
-          sellerData.sellerName = req.body.sellerName;
+          userData.mobileNumber = req.body.mobileNumber;
+          sellerData.name = req.body.name;
           sellerData.email = req.body.email;
-          sellerData.phoneNumber = req.body.phoneNumber;
+          sellerData.mobileNumber = req.body.mobileNumber;
         }
         sellerData.businessDetails = req.body.businessDetails;
         sellerData.aboutSeller = req.body.aboutSeller;

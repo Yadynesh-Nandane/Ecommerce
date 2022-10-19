@@ -11,7 +11,7 @@ export const getToken = (req, res) => {
 // User Sign Up
 export const registerUser = async (req, res, next) => {
   try {
-    const { name, email, phoneNumber, password, confirmPassword } = req.body;
+    const { name, email, mobileNumber, password, confirmPassword } = req.body;
 
     if (password !== confirmPassword) {
       return res.status(406).send({
@@ -20,7 +20,7 @@ export const registerUser = async (req, res, next) => {
       });
     }
 
-    const user = await User.create({ name, email, phoneNumber, password });
+    const user = await User.create({ name, email, mobileNumber, password });
 
     sendToken(user, 201, res);
   } catch (error) {
@@ -107,10 +107,10 @@ export const updateUserNameOfUserAndSeller = async (req, res, next) => {
       if (user && seller) {
         user.name = req.body.name;
         user.email = req.body.email;
-        user.phoneNumber = req.body.phoneNumber;
+        user.mobileNumber = req.body.mobileNumber;
         seller.sellerName = req.body.name;
         seller.email = req.body.email;
-        seller.phoneNumber = req.body.phoneNumber;
+        seller.mobileNumber = req.body.mobileNumber;
 
         await user.save({ validateModifiedOnly: true });
         await seller.save({ validateModifiedOnly: true });
@@ -122,7 +122,7 @@ export const updateUserNameOfUserAndSeller = async (req, res, next) => {
       } else if (user && !seller) {
         user.name = req.body.name;
         user.email = req.body.email;
-        user.phoneNumber = req.body.phoneNumber;
+        user.mobileNumber = req.body.mobileNumber;
 
         await user.save({ validateModifiedOnly: true });
 
