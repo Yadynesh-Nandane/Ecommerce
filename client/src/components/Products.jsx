@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BiRupee } from "react-icons/bi";
-import StarRatings from "react-star-ratings";
+import { Rating } from "@mui/material";
 
 import { allProducts, clearErrors } from "../actions/productActions";
 
@@ -26,16 +26,42 @@ const Products = () => {
         <Link
           to={`product/${product?._id}`}
           key={product?._id}
-          className="w-full h-auto flex items-center first:border-b-2  my-4 first:my-0 last:my-0"
+          className="w-full h-[200px] flex items-center first:border-b-2  my-4 first:my-0 last:my-0"
         >
-          <div className="w-2/5 h-[220px] flex items-center">
+          <div className="w-[220px] h-full flex items-center">
             <img
               src={product?.images[0]}
               className="w-full h-full object-contain"
             />
           </div>
-          <div className="flex flex-col">
-            <h4>{product?.title}</h4>
+          <div className="w-full h-full flex flex-col justify-start pr-3">
+            <h4 className="mt-5">
+              {product?.title}, {product?.color}
+            </h4>
+            <div className="flex items-center mt-1">
+              <Rating
+                value={product?.finalRating}
+                size="small"
+                style={{ borderColor: "#FFA41C" }}
+                precision={0.5}
+                max={5}
+                readOnly
+              />
+              <span className="ml-2">{product?.totalReviews}</span>
+            </div>
+            <div className="flex items-start relative mt-2">
+              <span className="absolute top-1.5">
+                <BiRupee />
+              </span>
+              <span className="text-2xl ml-3 font-semibold">
+                {product?.price.toLocaleString("hi-IN")}
+              </span>
+            </div>
+            <div className="mt-2">
+              <span>
+                Brand {"   "} - {product?.category?.product_subcategory}{" "}
+              </span>
+            </div>
           </div>
         </Link>
       ))}

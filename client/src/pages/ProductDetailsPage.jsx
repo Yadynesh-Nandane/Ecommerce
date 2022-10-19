@@ -78,7 +78,7 @@ const ProductDetailsPage = () => {
                   modules={[Pagination, Autoplay]}
                 >
                   {product?.singleProduct?.images.map((image, i) => (
-                    <SwiperSlide key={i}>
+                    <SwiperSlide key={image}>
                       <img src={image} />
                     </SwiperSlide>
                   ))}
@@ -110,7 +110,7 @@ const ProductDetailsPage = () => {
                 <h2 className="text-xl font-semibold">Product details</h2>
                 <ul className="ml-4 mt-4">
                   {product?.singleProduct?.features.map((feature, i) => (
-                    <li key="i" className="list-disc">
+                    <li key={i} className="list-disc">
                       {feature}
                     </li>
                   ))}
