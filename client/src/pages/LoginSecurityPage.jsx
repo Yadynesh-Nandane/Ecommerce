@@ -19,7 +19,7 @@ const LoginSecurity = () => {
     },
     {
       fieldName: "Mobile Phone Number",
-      fieldValue: user?.user?.phoneNumber,
+      fieldValue: user?.user?.mobileNumber,
     },
   ];
 

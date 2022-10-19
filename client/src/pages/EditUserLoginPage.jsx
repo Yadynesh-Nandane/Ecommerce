@@ -31,7 +31,7 @@ const EditUserLoginPage = () => {
     const formData = {
       name: name,
       email: email,
-      phoneNumber: phoneNumber,
+      mobileNumber: phoneNumber,
     };
 
     dispatch(updateUserProfile(formData));
@@ -43,7 +43,7 @@ const EditUserLoginPage = () => {
     if (isAuthenticated && (user !== null || undefined)) {
       setName(user?.user?.name);
       setEmail(user?.user?.email);
-      setPhoneNumber(user?.user?.phoneNumber);
+      setPhoneNumber(user?.user?.mobileNumber);
     }
 
     if (isUpdated) {
@@ -128,7 +128,7 @@ const EditUserLoginPage = () => {
                   <span className="text-lg font-semibold">
                     Old mobile number:{" "}
                   </span>
-                  <span>{user?.user?.phoneNumber}</span>
+                  <span>{user?.user?.mobileNumber}</span>
                 </div>
                 Enter the new mobile phone number you would like to associate
                 with your account below. Your Amazon Seller account mobile phone

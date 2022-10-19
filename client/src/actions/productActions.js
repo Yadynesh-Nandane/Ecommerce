@@ -13,7 +13,10 @@ export const allProducts = () => async (dispatch) => {
 
     const { data } = await axios.get(`${url}/products/all`, config);
 
-    dispatch({ type: productContants.ALL_PRODUCTS_SUCCESS, payload: data });
+    dispatch({
+      type: productContants.ALL_PRODUCTS_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: productContants.ALL_PRODUCTS_FAIL,

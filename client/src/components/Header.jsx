@@ -240,7 +240,7 @@ const Header = () => {
             {/* Mobile Sign in, Cart & Laptop Cart */}
             <div className="h-full flex items-center">
               {/* Mobile Sign in */}
-              <div className="flex items-center text-white lg:hidden mr-4">
+              <div className="flex items-center text-white lg:hidden">
                 {isAuthenticated ? (
                   <Link to="/account" className="flex items-center ">
                     <span className="text-sm font-bold">

@@ -7,9 +7,9 @@ import { RiProfileLine } from "react-icons/ri";
 
 import Header from "../components/Header";
 import { signOut, clearErrors } from "../actions/userActions";
-import orderLogo from "../assets/amazon-orders.png";
-import loginLogo from "../assets/amazon_signin_lock.png";
-import addressLogo from "../assets/amazon-address-map.png";
+import orderLogo from "../assets/orders.png";
+import loginLogo from "../assets/signin-lock.png";
+import addressLogo from "../assets/address-map.png";
 
 const YourAccount = () => {
   const dispatch = useDispatch();

@@ -21,14 +21,32 @@ const Products = () => {
   }, [dispatch, error]);
 
   return (
-    <div className="w-full h-full flex flex-col font-poppins" id="container">
+    <div className="w-full h-full flex flex-col border-b-2 " id="container">
       {products?.allProducts?.map((product) => (
         <Link
           to={`product/${product?._id}`}
           key={product?._id}
-          className="w-auto h-auto flex  border-2 my-4 first:my-0 last:my-0"
+          className="w-full h-auto flex items-center first:border-b-2  my-4 first:my-0 last:my-0"
         >
-          <div className="w-2/5 h-full py-10 px-4">
+          <div className="w-2/5 h-[220px] flex items-center">
+            <img
+              src={product?.images[0]}
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <div className="flex flex-col">
+            <h4>{product?.title}</h4>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+};
+
+export default Products;
+
+{
+  /* <div className="w-2/5 h-full py-10 px-4">
             <img
               src={product?.images[0]}
               alt="image apple"
@@ -51,11 +69,5 @@ const Products = () => {
             <p className="text-sm my-2">
               {product?.category?.product_category}
             </p>
-          </div>
-        </Link>
-      ))}
-    </div>
-  );
-};
-
-export default Products;
+          </div> */
+}
